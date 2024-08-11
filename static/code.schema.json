@@ -1,0 +1,23 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://barani.ltt.trojsten.sk/v0.0.6/code.schema.json",
+	"title": "QR code data",
+	"description": "data saved on qr code",
+	"type": "object",
+	"properties": {
+		"code": {
+			"description": "DNA code for baran",
+			"type": "string",
+			"pattern": "^[ATGC]{12}$"
+		},
+		"team": {
+			"description": "Team number",
+			"type": "number"
+		},
+		"time": {
+			"description": "Time in seconds from 12:00 in the day",
+			"type": "number"
+		}
+	},
+	"required": ["code", "team", "time"]
+}

@@ -1,0 +1,27 @@
+<html>
+<head>
+	<style>
+	#grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		justify-items: center;
+		align-items: center;
+		gap: 0.9em;
+	}
+	#grid > * {
+		transform: scale(0.75);
+		page-break-inside : avoid;
+		margin: auto;
+	}
+
+	.code {
+		height: 285px;
+	}
+	</style>
+	<script src="/static/qrcode.min.js"></script>
+</head>
+<body>
+	<div id="grid"></div>
+	<script type="module" src="/static/print.js"></script>
+</body>
+</html>
