@@ -64,7 +64,7 @@ async function process(req) {
 		0,
 		0,
 	);
-	const time_to_live = targetTime.getTime() - now.getTime() / 1000 + 60 * 200;
+	const time_to_live = targetTime.getTime() - now.getTime() / 1000 + 60 * 20;
 	let data = await req.json();
 	data.first = JSON.parse(data.first);
 	if (data.second) data.second = JSON.parse(data.second);
@@ -89,6 +89,13 @@ async function process(req) {
 				break;
 			case "shift":
 				newData.code = shift(data.first.code);
+				break;
+			case "gmo":
+				newData.code = gmo_edit(
+					data.first.code,
+					data.first.zero_based_position,
+					data.first.replacing_character,
+				);
 				break;
 		}
 
@@ -118,7 +125,7 @@ function biologicke_parenie(d, e) {
 function normalna_mutacia(a, sanca) {
 	let ret = "";
 	for (let i = 0; i < 12; i++) {
-		if (Math.random() > sanca) {
+		if (Math.random() > 1 - sanca) {
 			ret += "GATC".charAt(Math.floor(Math.random() * 4));
 		} else {
 			ret += a.charAt(i);
@@ -146,5 +153,13 @@ function create_complement(old_string: string) {
 				new_string += "A";
 		}
 	}
+	return normalna_mutacia(new_string, 1 / 12);
+}
+
+function gmo_edit(old_string: string, zero_based_position, character: string) {
+	let new_string =
+		old_string.substring(0, zero_based_position - 1) +
+		character +
+		old_string.substring(zero_based_position + 1);
 	return normalna_mutacia(new_string, 1 / 12);
 }
